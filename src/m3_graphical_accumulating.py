@@ -27,7 +27,7 @@ import rosegraphics as rg
 # ----------------------------------------------------------------------
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_draw_parallel_lines()
+    #run_test_draw_parallel_lines()
     run_test_draw_lines()
 
 
@@ -173,7 +173,7 @@ def draw_lines(n, point, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -187,9 +187,11 @@ def draw_lines(n, point, window):
     ####################################################################
     # ------------------------------------------------------------------
 
-    for k in range(point.y-100, point.y+100, n):
-        y = k
+
+    for k in range(n):
+        y = (200/n*k)+(point.y-80)
         end = rg.Point(point.x+100,y)
+        print(k,y, end)
         line = rg.Line(point,end)
         line.attach_to(window)
         window.render(0.05)

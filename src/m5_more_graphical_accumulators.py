@@ -29,7 +29,7 @@ def main():
     """ Calls the   TEST   functions in this module. """
     #run_test_draw_squares_from_circle()
     run_test_draw_circles_from_rectangle()
-    run_test_draw_lines_from_rectangles()
+    #run_test_draw_lines_from_rectangles()
 
 
 def run_test_draw_squares_from_circle():
@@ -152,13 +152,22 @@ def run_test_draw_circles_from_rectangle():
     rectangle.outline_thickness = 5
     draw_circles_from_rectangle(4, 5, rectangle, window1)
 
-    # Test 1:
-    rectangle = rg.Rectangle(rg.Point(600, 400), rg.Point(500,450))
+    # Test 2:
+    rectangle = rg.Rectangle(rg.Point(500, 400), rg.Point(600,450))
     rectangle.fill_color = 'blue'
     rectangle.outline_thickness = 3
     rectangle.outline_color = 'red'
     draw_circles_from_rectangle(8, 3, rectangle, window1)
     window1.close_on_mouse_click()
+
+    # Test 3
+    window2 = rg.RoseWindow(720, 500)
+    rectangle = rg.Rectangle(rg.Point(350, 280), rg.Point(375, 330))
+    rectangle.fill_color = 'yellow'
+    rectangle.outline_thickness = 5
+    rectangle.outline_color = 'brown'
+    draw_circles_from_rectangle(6, 10, rectangle, window2)
+    window2.close_on_mouse_click()
 
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
@@ -215,22 +224,30 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
     ####################################################################
     # ------------------------------------------------------------------
 
-    for k in range(m+1):
+    for k in range(m):
         rectangle.attach_to(window)
         height = rectangle.corner_1.y-rectangle.corner_2.y
         radius = height/2
-
-        x = rectangle.corner_1.x+radius
-
+        x = rectangle.corner_1.x+radius+radius*2*k
         y =(rectangle.corner_1.y+rectangle.corner_2.y)/2
-
-        center = rg.Point(x*k, y)
+        center = rg.Point(x, y)
         circle = rg.Circle(center,radius)
+        circle.fill_color = rectangle.fill_color
         circle.attach_to(window)
-
-
-
         window.render(0.05)
+
+    for k in range(n):
+        rectangle.attach_to(window)
+        width = rectangle.corner_1.x-rectangle.corner_2.x
+        radius = width/2
+        x = (rectangle.corner_1.x+rectangle.corner_2.x)/2
+        y = rectangle.corner_1.y+radius+radius*k*2
+        center = rg.Point(x,y)
+        circle = rg.Circle(center,radius)
+        circle.outline_color = rectangle.outline_color
+        circle.attach_to(window)
+        window.render(.05)
+
 
 
 

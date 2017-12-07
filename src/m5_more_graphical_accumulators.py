@@ -27,9 +27,9 @@ import rosegraphics as rg
 # ----------------------------------------------------------------------
 def main():
     """ Calls the   TEST   functions in this module. """
-    #run_test_draw_squares_from_circle()
+    run_test_draw_squares_from_circle()
     run_test_draw_circles_from_rectangle()
-    #run_test_draw_lines_from_rectangles()
+    run_test_draw_lines_from_rectangles()
 
 
 def run_test_draw_squares_from_circle():
@@ -161,7 +161,7 @@ def run_test_draw_circles_from_rectangle():
     window1.close_on_mouse_click()
 
     # Test 3
-    window2 = rg.RoseWindow(720, 500)
+    window2 = rg.RoseWindow(620, 380)
     rectangle = rg.Rectangle(rg.Point(350, 280), rg.Point(375, 330))
     rectangle.fill_color = 'yellow'
     rectangle.outline_thickness = 5
@@ -210,7 +210,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -341,6 +341,46 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ####################################################################
     # ------------------------------------------------------------------
+
+    center1 = rectangle1.get_center()
+    center2 = rectangle2.get_center()
+
+    start = rg.Point(center1.x,center1.y)
+    end = rg.Point(center2.x,center2.y)
+
+    radius1 = (rectangle1.get_width())/2
+    radius2 = (rectangle1.get_height())/2
+
+    r1color = rectangle1.outline_color
+    r2color = rectangle2.outline_color
+
+    for k in range(n):
+        if k % 2 ==0:
+            line = rg.Line(start,end)
+            line.color = r1color
+            line.thickness = 5
+            line.attach_to(window)
+
+            start.x = start.x-radius1
+            start.y = start.y+radius2
+            end.x = end.x - radius1
+            end.y = end.y+radius2
+
+        else:
+            line2 = rg.Line(start, end)
+            line2.color = r2color
+            line2.thickness = 5
+            line2.attach_to(window)
+
+            start.x = start.x - radius1
+            start.y = start.y + radius2
+            end.x = end.x - radius1
+            end.y = end.y + radius2
+
+    rectangle2.attach_to(window)
+    rectangle1.attach_to(window)
+    window.render(.05)
+
 
 
 # ----------------------------------------------------------------------
